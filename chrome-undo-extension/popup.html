@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undo Anything Settings</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      background: #f5f5f5;
+    }
+    h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+    .section {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    button.secondary {
+      background: #2196F3;
+    }
+    button.secondary:hover {
+      background: #1976D2;
+    }
+    button.danger {
+      background: #f44336;
+    }
+    button.danger:hover {
+      background: #d32f2f;
+    }
+    .hint {
+      font-size: 11px;
+      color: #888;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+    .status {
+      padding: 10px;
+      background: #e8f5e9;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #2e7d32;
+      display: none;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2>⚙️ Настройки Undo Anything</h2>
+
+  <div class="section">
+    <label>
+      <input type="checkbox" id="enabled">
+      Включить расширение
+    </label>
+  </div>
+
+  <div class="section">
+    <label for="autoSaveInterval">Интервал автосохранения (мс)</label>
+    <input type="number" id="autoSaveInterval" min="100" max="10000" step="100">
+    <div class="hint">Рекомендуется: 500-2000 мс</div>
+
+    <label for="maxHistorySize">Лимит истории (символов)</label>
+    <input type="number" id="maxHistorySize" min="1000" max="1000000" step="1000">
+    <div class="hint">Рекомендуется: 50000-200000 (≈100-200 МБ в памяти)</div>
+  </div>
+
+  <div class="section">
+    <label for="allowedPages">Разрешённые страницы (через запятую)</label>
+    <textarea id="allowedPages" placeholder="example.com, mysite.org/page"></textarea>
+    <div class="hint">Оставьте пустым для работы на всех страницах</div>
+  </div>
+
+  <div class="section">
+    <label for="targetSelector">Селектор элемента (class или id)</label>
+    <input type="text" id="targetSelector" placeholder=".my-textarea или #my-input">
+    <div class="hint">Оставьте пустым для работы со всеми textarea и input</div>
+    
+    <button id="selectModeBtn" class="secondary">🎯 Режим выбора элемента</button>
+    <div class="hint">Нажмите, затем кликните на нужное поле на странице</div>
+  </div>
+
+  <div class="section">
+    <button id="saveBtn">💾 Сохранить настройки</button>
+    <button id="clearHistoryBtn" class="danger">🗑️ Очистить историю</button>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

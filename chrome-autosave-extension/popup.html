@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>AutoSave Settings</title>
+  <style>
+    body {
+      width: 350px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 16px;
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    textarea {
+      height: 60px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    button.secondary {
+      background-color: #2196F3;
+    }
+    button.secondary:hover {
+      background-color: #1976D2;
+    }
+    button.danger {
+      background-color: #f44336;
+    }
+    button.danger:hover {
+      background-color: #d32f2f;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 8px;
+      background-color: #e7f3fe;
+      border-left: 4px solid #2196F3;
+      font-size: 12px;
+      display: none;
+    }
+    .hint {
+      font-size: 11px;
+      color: #666;
+      margin-top: -5px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2>⚙️ AutoSave Настройки</h2>
+
+  <div class="section">
+    <label for="timer">Интервал автосохранения (мс):</label>
+    <input type="number" id="timer" min="100" max="10000" value="500">
+    <div class="hint">Рекомендуется 300-1000 мс</div>
+
+    <label for="limit">Лимит памяти (МБ):</label>
+    <input type="number" id="limit" min="10" max="500" value="100">
+    <div class="hint">Максимальный размер хранилища на страницу</div>
+  </div>
+
+  <div class="section">
+    <label for="pages">Разрешённые страницы (по одной на строку):</label>
+    <textarea id="pages" placeholder="https://example.com/*&#10;https://*.google.com/*"></textarea>
+    <div class="hint">Оставьте пустым для работы на всех страницах. Используйте * как wildcard.</div>
+  </div>
+
+  <div class="section">
+    <label for="selector">CSS селектор (class/id) для отслеживания:</label>
+    <input type="text" id="selector" placeholder=".my-textarea или #my-input">
+    <div class="hint">Оставьте пустым для автоматического отслеживания всех input/textarea</div>
+    
+    <button id="pickBtn" class="secondary">🎯 Выбрать элемент на странице</button>
+    <div class="hint">Нажмите, затем кликните на нужное поле ввода на активной вкладке</div>
+  </div>
+
+  <button id="saveBtn">💾 Сохранить настройки</button>
+  <button id="clearBtn" class="danger">🗑️ Очистить все сохранённые данные</button>
+
+  <div id="status" class="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

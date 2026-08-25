@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Recovery Settings</title>
+  <style>
+    body {
+      width: 450px;
+      padding: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      background: #f9f9f9;
+    }
+    h2 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 16px;
+    }
+    .section {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    button.secondary {
+      background: #2196F3;
+    }
+    button.secondary:hover {
+      background: #1976D2;
+    }
+    button.danger {
+      background: #f44336;
+    }
+    button.danger:hover {
+      background: #d32f2f;
+    }
+    button.active {
+      background: #FF9800;
+    }
+    .status {
+      padding: 8px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 11px;
+      display: none;
+    }
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      display: block;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      display: block;
+    }
+    .info {
+      font-size: 11px;
+      color: #666;
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .checkbox-group input {
+      margin-right: 8px;
+    }
+    #pickerStatus {
+      text-align: center;
+      padding: 8px;
+      background: #fff3e0;
+      color: #e65100;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>📝 Text Recovery - Настройки</h2>
+  
+  <div id="pickerStatus">🎯 Режим выбора активен! Кликните на поле ввода на странице</div>
+
+  <div class="section">
+    <label>Статус расширения</label>
+    <div class="checkbox-group">
+      <input type="checkbox" id="enabled">
+      <span>Включить автосохранение</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Интервал автосохранения (мс)</label>
+    <input type="number" id="saveInterval" min="100" max="60000" value="500">
+    <div class="info">Рекомендуется: 500-2000 мс. Меньше = чаще сохранение, больше нагрузка.</div>
+    
+    <label>Лимит памяти на одно поле (символов истории)</label>
+    <input type="number" id="memoryLimit" min="1000" max="1000000" value="50000">
+    <div class="info">Примерно 100-200 МБ при максимальных настройках. 50000 символов ≈ 100 КБ.</div>
+  </div>
+
+  <div class="section">
+    <label>URL страниц (каждая с новой строки)</label>
+    <textarea id="allowedUrls" placeholder="https://example.com&#10;https://another-site.com"></textarea>
+    <div class="info">Оставьте пустым для работы на всех страницах. Поддерживаются wildcard: *example.com*</div>
+  </div>
+
+  <div class="section">
+    <label>Class или ID поля ввода (опционально)</label>
+    <input type="text" id="targetSelector" placeholder=".my-textarea или #my-input">
+    <div class="info">Оставьте пустым для работы со всеми textarea и input[type=text]</div>
+    
+    <button id="startPicker" class="secondary">🎯 Выбрать поле на странице</button>
+  </div>
+
+  <div class="section">
+    <button id="saveSettings">💾 Сохранить настройки</button>
+    <button id="clearHistory" class="danger">🗑️ Очистить историю</button>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
